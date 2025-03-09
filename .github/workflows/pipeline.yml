@@ -1,0 +1,44 @@
+name: simple_deployment_pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install backend dependencies
+        run: npm ci
+
+      - name: Run backend tests
+        run: npm test
+
+      - name: Install frontend dependencies
+        run: |
+          cd client
+          npm ci
+
+      - name: Lint frontend
+        run: |
+          cd client
+          npm run lint
+
+      - name: Run frontend tests
+        run: |
+          cd client
+          npm test
+
+      - name: Build frontend
+        run: |
+          cd client
+          npm run build
