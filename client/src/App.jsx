@@ -14,7 +14,7 @@ const App = () => {
   const [user, setUser] = useState(null)
 
   const [message, setMessage] = useState(null)
-  const [messageType, setMessageType] = useState('') // 'success' or 'error'
+  const [messageType, setMessageType] = useState('')
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs))
